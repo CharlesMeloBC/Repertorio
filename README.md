@@ -18,9 +18,14 @@ montar repertorio que ficará aberto para aprovação do administrador
 ### Administrador 
 Fara o controle dos louvores cadastrados e aprovando sugestão rerpertorio ou reprovando
 
-- 1 Colhendo dados de louvores impresso para alimentar o Banco de dados ✅
-- 2 Criar API
-- 3 Criar o Front
+**1.** Colhendo dados de louvores impresso para alimentar o Banco de dados ✅
+- (Usei uma planilha do Execel)
+
+**2.** Criar API ✅ 
+- (Persistir os dados da planilha para meu SQL Server usando Dapper)✅
+- (Metodos GET, POST, PUT, DELETE)
+
+**3.** Criar o Front
 - (...)
 
 ### Ferramnentas
