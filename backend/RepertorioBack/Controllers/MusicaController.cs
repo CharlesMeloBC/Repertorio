@@ -33,5 +33,18 @@ namespace RepertorioBack.Controllers
 
             return Ok(musica);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PostMusica([FromBody] MusicaModel musica)
+        {
+            if (musica == null)
+            {
+                return BadRequest("Música não fornecida");
+            }
+
+            var musicaCriada = await _musicaRepository.PostMusic(musica);
+
+            return CreatedAtAction(nameof(GetById), new { id = musicaCriada.Id }, musicaCriada);
+        }
     }
 }

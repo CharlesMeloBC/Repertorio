@@ -1,12 +1,8 @@
-﻿// MusicaRepository.cs
-using Dapper;
+﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using RepertorioBack.Models;
 using RepertorioBack.Service;
-using System.Collections.Generic;
 using System.Data;
-using System.Threading.Tasks;
 
 public class MusicaRepository : IMusicaRepository
 {
@@ -19,7 +15,6 @@ public class MusicaRepository : IMusicaRepository
 
     private IDbConnection Connection => new SqlConnection(_connectionString);
 
-    // Método para obter todas as músicas
     public async Task<IEnumerable<MusicaModel>> GetAllMusicasAsync()
     {
         using (var connection = Connection)
@@ -35,6 +30,28 @@ public class MusicaRepository : IMusicaRepository
         {
             var query = "SELECT * FROM LOUVORES WHERE Id = @Id";
             return await connection.QueryFirstOrDefaultAsync<MusicaModel>(query, new { Id = id });
+        }
+    }
+
+    public async Task<MusicaModel> PostMusic (MusicaModel model)
+    {
+        using(var connection = Connection)
+        {
+            var query = @"
+            INSERT INTO LOUVORES (Nome, Artista, Tipo, Quantidade)
+            VALUES (@Nome, @Artista, @Tipo, @Quantidade);
+            SELECT CAST(SCOPE_IDENTITY() AS INT);"; 
+
+            var id = await connection.ExecuteScalarAsync<int>(query, new
+            {
+                Nome = model.Nome,
+                Artista = model.Artista,
+                Tipo = model.Tipo,
+                Quantidade = model.Quantidade,
+            });
+
+            model.Id = id;
+            return model;
         }
     }
 

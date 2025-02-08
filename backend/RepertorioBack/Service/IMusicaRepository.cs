@@ -6,6 +6,8 @@ namespace RepertorioBack.Service
     {
         Task<IEnumerable<MusicaModel>> GetAllMusicasAsync();
         Task<MusicaModel> GetMusicaByIdAsync(int id);
+        Task<MusicaModel> PostMusic (MusicaModel model);
+
     }
 
 }
