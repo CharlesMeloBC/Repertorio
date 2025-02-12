@@ -18,6 +18,7 @@ montar repertorio que ficará aberto para aprovação do administrador
 ### Administrador 
 Fara o controle dos louvores cadastrados e aprovando sugestão rerpertorio ou reprovando
 
+### Etapas 
 **1.** Colhendo dados de louvores impresso para alimentar o Banco de dados ✅
 - (Usei uma planilha do Execel)
 
