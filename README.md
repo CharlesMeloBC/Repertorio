@@ -23,7 +23,9 @@ Fara o controle dos louvores cadastrados e aprovando sugestão rerpertorio ou re
 
 **2.** Criar API ✅ 
 - (Persistir os dados da planilha para meu SQL Server usando Dapper)✅
-- (Metodos GET, POST, PUT, DELETE)
+- (Metodos GET, POST, PUT, DELETE)✅
+- Criar perfis de acesso Admin e Usuario Roles com JWT
+- Criar logs 
 
 **3.** Criar o Front
 - (...)

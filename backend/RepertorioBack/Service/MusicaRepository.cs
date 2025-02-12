@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using RepertorioBack.Models;
 using RepertorioBack.Service;
@@ -52,6 +54,46 @@ public class MusicaRepository : IMusicaRepository
 
             model.Id = id;
             return model;
+        }
+    }
+
+    public async Task<bool> DeleteMusic(int Id)
+    {
+        using (var connection = Connection)
+        {
+            var query = "DELETE FROM LOUVORES WHERE Id = @Id";
+
+            var result = await connection.ExecuteAsync(query, new { Id });
+
+            return result > 0;
+        }
+    }
+
+    public async Task<MusicaModel> UpdateMusic(int id, MusicaModel model)
+    {
+        using (var connection = Connection)
+        {
+            var query = @"
+            UPDATE LOUVORES
+            SET Nome = @Nome,
+                Artista = @Artista,
+                Tipo = @Tipo,
+                Quantidade = @Quantidade
+            WHERE Id = @Id;
+            
+            SELECT * FROM LOUVORES WHERE Id = @Id;
+        ";
+
+            var musicaAtualizada = await connection.QuerySingleOrDefaultAsync<MusicaModel>(query, new
+            {
+                Id = id,
+                Nome = model.Nome,
+                Artista = model.Artista,
+                Tipo = model.Tipo,
+                Quantidade = model.Quantidade
+            });
+
+            return musicaAtualizada;
         }
     }
 
