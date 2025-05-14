@@ -1,11 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RepertorioBack.Domain.Models
+﻿namespace RepertorioBack.Aplication.Dtos
 {
-    public class MusicaModel
+    public class MusicaDto
     {
         public int? Id { get; set; }
-        public string Nome { get; set; } = string.Empty;
+        public string Nome { get; set; }
         public string? Artista { get; set; }
         public int? Quantidade { get; set; }
         public string? Tipo { get; set; }

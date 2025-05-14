@@ -17,25 +17,25 @@ public class MusicaRepository : IMusicaRepository
 
     private IDbConnection Connection => new SqlConnection(_connectionString);
 
-    public async Task<IEnumerable<MusicaModel>> GetAllMusicasAsync()
+    public async Task<IEnumerable<MusicaAgregate>> GetAllMusicasAsync()
     {
         using (var connection = Connection)
         {
             var query = "SELECT * FROM LOUVORES"; 
-            return await connection.QueryAsync<MusicaModel>(query);
+            return await connection.QueryAsync<MusicaAgregate>(query);
         }
     }
 
-    public async Task<MusicaModel> GetMusicaByIdAsync(int id)
+    public async Task<MusicaAgregate> GetMusicaByIdAsync(int id)
     {
         using (var connection = Connection)
         {
             var query = "SELECT * FROM LOUVORES WHERE Id = @Id";
-            return await connection.QueryFirstOrDefaultAsync<MusicaModel>(query, new { Id = id });
+            return await connection.QueryFirstOrDefaultAsync<MusicaAgregate>(query, new { Id = id });
         }
     }
 
-    public async Task<MusicaModel> PostMusic (MusicaModel model)
+    public async Task<MusicaAgregate> PostMusic (MusicaAgregate model)
     {
         using(var connection = Connection)
         {
@@ -69,7 +69,7 @@ public class MusicaRepository : IMusicaRepository
         }
     }
 
-    public async Task<MusicaModel> UpdateMusic(int id, MusicaModel model)
+    public async Task<MusicaAgregate> UpdateMusic(int id, MusicaAgregate model)
     {
         using (var connection = Connection)
         {
@@ -84,7 +84,7 @@ public class MusicaRepository : IMusicaRepository
             SELECT * FROM LOUVORES WHERE Id = @Id;
         ";
 
-            var musicaAtualizada = await connection.QuerySingleOrDefaultAsync<MusicaModel>(query, new
+            var musicaAtualizada = await connection.QuerySingleOrDefaultAsync<MusicaAgregate>(query, new
             {
                 Id = id,
                 Nome = model.Nome,

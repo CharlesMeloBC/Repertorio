@@ -7,7 +7,7 @@ namespace RepertorioBack.Framework.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<MusicaModel> LOUVORES { get; set; }
+        public DbSet<MusicaAgregate> LOUVORES { get; set; }
     }
 
 }

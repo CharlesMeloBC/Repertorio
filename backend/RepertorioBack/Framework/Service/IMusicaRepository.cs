@@ -5,10 +5,10 @@ namespace RepertorioBack.Framework.Service
 {
     public interface IMusicaRepository
     {
-        Task<IEnumerable<MusicaModel>> GetAllMusicasAsync();
-        Task<MusicaModel> GetMusicaByIdAsync(int id);
-        Task<MusicaModel> PostMusic(MusicaModel model);
-        Task<MusicaModel> UpdateMusic(int id, MusicaModel model);
+        Task<IEnumerable<MusicaAgregate>> GetAllMusicasAsync();
+        Task<MusicaAgregate> GetMusicaByIdAsync(int id);
+        Task<MusicaAgregate> PostMusic(MusicaAgregate model);
+        Task<MusicaAgregate> UpdateMusic(int id, MusicaAgregate model);
         Task<bool> DeleteMusic(int Id);
 
     }
