@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RepertorioBack.Models;
-using RepertorioBack.Service;
+using RepertorioBack.Domain.Models;
+using RepertorioBack.Framework.Service;
 
-namespace RepertorioBack.Controllers
+namespace RepertorioBack.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -56,8 +56,8 @@ namespace RepertorioBack.Controllers
             {
                 return NoContent();
             }
-            
-            return NotFound(new { musica = "Erro ao tentar excluir" }); 
+
+            return NotFound(new { musica = "Erro ao tentar excluir" });
 
         }
 

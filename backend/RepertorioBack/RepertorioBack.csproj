@@ -18,4 +18,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Aplication\Commands\" />
+    <Folder Include="Aplication\Querys\" />
+  </ItemGroup>
+
 </Project>

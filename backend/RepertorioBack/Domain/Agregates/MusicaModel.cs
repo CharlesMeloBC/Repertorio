@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RepertorioBack.Models
+namespace RepertorioBack.Domain.Models
 {
     public class MusicaModel
     {

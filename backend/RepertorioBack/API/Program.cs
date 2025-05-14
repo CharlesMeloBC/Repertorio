@@ -1,4 +1,4 @@
-using RepertorioBack.Service;
+using RepertorioBack.Framework.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 

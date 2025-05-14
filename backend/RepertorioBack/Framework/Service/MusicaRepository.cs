@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using RepertorioBack.Models;
-using RepertorioBack.Service;
+using RepertorioBack.Domain.Models;
+using RepertorioBack.Framework.Service;
 using System.Data;
 
 public class MusicaRepository : IMusicaRepository
