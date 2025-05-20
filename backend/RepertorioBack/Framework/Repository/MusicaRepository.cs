@@ -1,9 +1,8 @@
 ﻿using Dapper;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using RepertorioBack.Aplication.Dtos;
+using RepertorioBack.Domain.Agregates;
 using RepertorioBack.Domain.Models;
-using RepertorioBack.Framework.Service;
 using System.Data;
 
 public class MusicaRepository : IMusicaRepository
@@ -35,7 +34,7 @@ public class MusicaRepository : IMusicaRepository
         }
     }
 
-    public async Task<MusicaAgregate> PostMusic (MusicaAgregate model)
+    public async Task<MusicaDto> PostMusic (MusicaDto model)
     {
         using(var connection = Connection)
         {
@@ -46,13 +45,12 @@ public class MusicaRepository : IMusicaRepository
 
             var id = await connection.ExecuteScalarAsync<int>(query, new
             {
-                Nome = model.Nome,
-                Artista = model.Artista,
-                Tipo = model.Tipo,
-                Quantidade = model.Quantidade,
+                model.Nome,
+                model.Artista,
+                model.Tipo,
+                model.Quantidade,
             });
 
-            model.Id = id;
             return model;
         }
     }
@@ -87,14 +85,23 @@ public class MusicaRepository : IMusicaRepository
             var musicaAtualizada = await connection.QuerySingleOrDefaultAsync<MusicaAgregate>(query, new
             {
                 Id = id,
-                Nome = model.Nome,
-                Artista = model.Artista,
-                Tipo = model.Tipo,
-                Quantidade = model.Quantidade
+                model.Nome,
+                model.Artista,
+                model.Tipo,
+                model.Quantidade
             });
 
             return musicaAtualizada;
         }
     }
 
+    public Task<List<MusicaDto>> CreatePlaylist(List<MusicaDto> playlist)
+    {
+        using (var connection = Connection)
+        {
+            
+        
+        }
+        throw new NotImplementedException();
+    }
 }

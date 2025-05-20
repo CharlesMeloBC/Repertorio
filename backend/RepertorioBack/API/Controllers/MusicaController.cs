@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RepertorioBack.Aplication.Commands.Create;
+using RepertorioBack.Aplication.Commands.Delete;
+using RepertorioBack.Aplication.Commands.Update;
+using RepertorioBack.Aplication.Dtos;
+using RepertorioBack.Aplication.Querys;
 using RepertorioBack.Domain.Models;
-using RepertorioBack.Framework.Service;
 
 namespace RepertorioBack.API.Controllers
 {
@@ -8,76 +12,65 @@ namespace RepertorioBack.API.Controllers
     [Route("api/[controller]")]
     public class MusicaController : ControllerBase
     {
-        private readonly IMusicaRepository _musicaRepository;
-
-        public MusicaController(IMusicaRepository musicaRepository)
-        {
-            _musicaRepository = musicaRepository;
-        }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MusicaModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<MusicaAgregate>>> GetAll()
         {
-            var musicas = await _musicaRepository.GetAllMusicasAsync();
-            return Ok(musicas);
+            var query = new GetMusicasQuery();
+
+            return Ok(query);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MusicaModel>> GetById(int id)
+        public async Task<ActionResult<MusicaAgregate>> GetById(int id)
         {
-            var musica = await _musicaRepository.GetMusicaByIdAsync(id);
-            if (musica == null)
+            var query = new GetMusicByIdQuery(id);
+            if (query == null)
             {
                 return NotFound();
             }
 
-            return Ok(musica);
+            return Ok(query);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostMusica([FromBody] MusicaModel musica)
+        public async Task<IActionResult> PostMusica([FromBody] MusicaAgregate musica)
         {
+
+           var command = new CreateMusicCommand(musica.Nome, musica.Artista, musica.Quantidade, musica.Tipo);
+
             if (musica == null)
             {
                 return BadRequest("Música não cadastrada");
             }
 
-            var musicaCriada = await _musicaRepository.PostMusic(musica);
-
-            return CreatedAtAction(nameof(GetById), new { id = musicaCriada.Id }, musicaCriada);
+            return Ok(command);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMusic(int Id)
+        public async Task<IActionResult> DeleteMusic(int id)
         {
-            var musica = await _musicaRepository.DeleteMusic(Id);
+            var command = new DeleteMusicCommand(id);
 
-            if (musica)
+            if (command != null)
             {
-                return NoContent();
+                return NotFound(new { musica = "Erro ao tentar excluir" });
             }
 
-            return NotFound(new { musica = "Erro ao tentar excluir" });
-
+            return NoContent();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMusic(int id, [FromBody] MusicaModel musica)
+        public async Task<IActionResult> UpdateMusic(int id, [FromBody] MusicaDto musica)
         {
-            if (musica == null)
-            {
-                return BadRequest("Música não fornecida.");
-            }
+            var command = new UpdateMusicaCommad(id, musica);
 
-            var musicaAtualizada = await _musicaRepository.UpdateMusic(id, musica);
-
-            if (musicaAtualizada == null)
+            if (command == null)
             {
                 return NotFound(new { mensagem = "Música não encontrada para atualizar." });
             }
 
-            return Ok(musicaAtualizada);
+            return Ok(command);
         }
-
     }
 }
